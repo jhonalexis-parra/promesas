@@ -77,11 +77,12 @@ let consultandoBaseDeDatos = new Promise((resolve, reject) => {
 // Aquí realizamos un la consulta de la promesa, esperando su respuesta asíncrona
 consultandoBaseDeDatos
     .then((respuesta) => {
-        console.log(respuesta);
-
-    }).then(
-
-    ).catch((err) => {
+        //console.log(respuesta);
+        return respuesta;
+    }).then((respuesta) => {
+        //console.log(respuesta);
+        renderizarDatosUsuario(respuesta.results[0]);
+    }).catch((err) => {
         console.log(err);
     });
 
@@ -91,9 +92,29 @@ function renderizarDatosUsuario(datos) {
     // la foto, el nombre completo del usuario y su email.
     // Esto debe estar basado en la info que nos llega e insertarse en el HTML.
     // Tip: pueden manipular el CSS y estructurar la tarjeta a su gusto.
+    // console.log(datos);
+    // let foto = datos["picture"];
+    // let nombreUsuario = datos["name"];
+    // let email = datos["email"];
 
 
+
+    // console.log(foto);
+    // console.log(nombreUsuario);
+    // console.log(email);
+
+    contenedor = document.querySelector(".tarjeta"); 
+    
+    template = 
+    ` <img src="${datos.picture.medium}" alt="${datos.imagenPerfilMedium}" ><br> 
+    <p class="nombre">Nombre Completo: ${datos.name.title} ${datos.name.first} ${datos.name.last}</p><br> 
+    <p class="email">Email: ${datos.email}</p> 
+    `; 
+    
+    contenedor.innerHTML += template;
 
 
 
 }
+
+
